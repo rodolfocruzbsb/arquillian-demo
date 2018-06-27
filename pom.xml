@@ -56,4 +56,26 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<profiles>
+		<!-- Perfil do WildFly 8.1.0 do tipo gerenciado -->
+		<profile>
+			<id>jboss</id>
+			<dependencies>
+				<dependency>
+					<groupId>org.wildfly</groupId>
+					<artifactId>wildfly-arquillian-container-managed</artifactId>
+					<version>8.1.0.Final</version>
+					<scope>test</scope>
+					<!-- Exclui a chamada desnecessária do Jconsole (não vamos utilizar) -->
+					<exclusions>
+						<exclusion>
+							<groupId>sun.jdk</groupId>
+							<artifactId>jconsole</artifactId>
+						</exclusion>
+					</exclusions>
+				</dependency>
+			</dependencies>
+		</profile>
+	</profiles>
 </project>
