@@ -14,12 +14,14 @@ public class SeminarioDao {
 	@PersistenceContext(unitName = "teste")
 	EntityManager em;
 
-	public void salvar(Seminario p) {
-		em.persist(p);
+	public void salvar(Seminario s) {
+		br.unb.vvts.arquillian.util.SeminarioUtil.validarTemaSeminario(s);
+		em.persist(s);
 	}
 
-	public void atualizar(Seminario p) {
-		em.merge(p);
+	public void atualizar(Seminario s) {
+		br.unb.vvts.arquillian.util.SeminarioUtil.validarTemaSeminario(s);
+		em.merge(s);
 	}
 
 	public Seminario buscar(int id) {

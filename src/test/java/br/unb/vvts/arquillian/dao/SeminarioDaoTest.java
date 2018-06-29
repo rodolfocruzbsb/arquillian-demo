@@ -7,7 +7,7 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 
-import javax.inject.Inject;
+import javax.ejb.EJB;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -19,14 +19,16 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import br.unb.vvts.arquillian.model.OutraClasseQualquer;
 import br.unb.vvts.arquillian.model.Seminario;
+import br.unb.vvts.arquillian.util.SeminarioUtil;
 
 @RunWith(Arquillian.class)
 public class SeminarioDaoTest {
 
-	@Inject
+	@EJB
 	SeminarioDao seminarioDao;
-
+	
 	@Deployment
 	public static Archive<?> criarArquivoTeste() {
 		Archive<?> arquivoTeste = ShrinkWrap.create(WebArchive.class, "aplicacao-arquillian-demo.war")
@@ -35,7 +37,7 @@ public class SeminarioDaoTest {
 				.addPackage(SeminarioDao.class.getPackage())
 				// Adicionando apenas a classe Seminario, e não o pacote inteiro
 				// como na linha anterior
-				.addClass(Seminario.class)
+				.addClasses(Seminario.class, OutraClasseQualquer.class, SeminarioUtil.class)
 				// Adicionando o arquivo persistence.xml para conexão JPA
 				.addAsResource("META-INF/persistence.xml")
 				// Adicionando o beans.xml para ativação do CDI
@@ -79,7 +81,7 @@ public class SeminarioDaoTest {
 
 		LocalDate localDate = LocalDate.now();
 		Date novaData = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-		
+
 		assertEquals("Prism Model Checker", p2.getTema());
 		assertEquals(novaData, p2.getData());
 	}

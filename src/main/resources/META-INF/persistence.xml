@@ -8,6 +8,7 @@
 		<jta-data-source>java:jboss/datasources/ArquillianDS</jta-data-source>
 
 		<class>br.unb.vvts.arquillian.model.Seminario</class>
+		<class>br.unb.vvts.arquillian.model.OutraClasseQualquer</class>
 
 		<properties>
 			<!-- Atualiza o banco, gera as tabelas se for preciso -->
